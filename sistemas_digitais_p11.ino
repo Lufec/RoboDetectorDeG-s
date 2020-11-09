@@ -188,15 +188,15 @@ void andar(uint8_t fatorVel, uint8_t target){ //target  = quantos s
   velocLinear = velocLinMax*fatorVel/4;
   
   //Primeiro envio da informação de posíção inicial via USART
-  //USART_Transmit(posX);
-  //USART_Transmit(posY);
+  USART_Transmit(posX);
+  USART_Transmit(posY);
   
   //Esse trecho é usado apenas para visualizar a informação pelo TinkerCad
   //Caso usasse o USART, o valor que apareceria na plataforma
   //seria a decodificação ASCII do byte.
-  Serial.print(posX); 
-  Serial.print("-");  
-  Serial.println(posY);
+  //Serial.print(posX); 
+  //Serial.print("-");  
+ // Serial.println(posY);
   delay(10);
   
   //Como a direção de locomoção influenciará a posição do robô,
@@ -216,12 +216,12 @@ void andar(uint8_t fatorVel, uint8_t target){ //target  = quantos s
                 atualizar = 0; //desliga o booleano para não realizar a operação 
                               	//novamente (até ser acionado pelo interruptor)
   	     	    posY += velocLinear; //atualiza posição em Y
-            	//USART_Transmit(posX); //envia posições X e Y atuais
-            	//USART_Transmit(posY);
+            	USART_Transmit(posX); //envia posições X e Y atuais
+            	USART_Transmit(posY);
               //Trecho usado apenas para simular no tinkercad
-            	Serial.print(posX);
-            	Serial.print("-");
-            	Serial.println(posY);
+            	//Serial.print(posX);
+            	//Serial.print("-");
+            	//Serial.println(posY);
             }
         }
         break;
@@ -234,11 +234,11 @@ void andar(uint8_t fatorVel, uint8_t target){ //target  = quantos s
             if(atualizar){
                 atualizar = 0;
         	    posX += velocLinear;//
-            	//USART_Transmit(posX);
-            	//USART_Transmit(posY);
-            	Serial.print(posX);
-            	Serial.print("-");
-            	Serial.println(posY);
+            	USART_Transmit(posX);
+            	USART_Transmit(posY);
+            	//Serial.print(posX);
+            	//Serial.print("-");
+            	//Serial.println(posY);
             }
         }
     	break;
@@ -251,11 +251,11 @@ void andar(uint8_t fatorVel, uint8_t target){ //target  = quantos s
  			if(atualizar){
                 atualizar = 0;
                 posY -= velocLinear;//
-            	//USART_Transmit(posX);
-            	//USART_Transmit(posY);
-            	Serial.print(posX);
-            	Serial.print("-");
-            	Serial.println(posY);
+            	  USART_Transmit(posX);
+            	  USART_Transmit(posY);
+              //Serial.print(posX);
+            	//Serial.print("-");
+            	//Serial.println(posY);
             }
         }
        	break;
@@ -268,11 +268,11 @@ void andar(uint8_t fatorVel, uint8_t target){ //target  = quantos s
  		  if(atualizar){
                 atualizar = 0;
         	    posX -= velocLinear;//
-            	//USART_Transmit(posX);
-            	//USART_Transmit(posY);
-            	Serial.print(posX);
-            	Serial.print("-");
-            	Serial.println(posY);
+            	USART_Transmit(posX);
+            	USART_Transmit(posY);
+            	//Serial.print(posX);
+            	//Serial.print("-");
+            	//Serial.println(posY);
           }
         }
     	break;    
@@ -302,8 +302,8 @@ void senLuz(){
   //Quando a flag ADIF vira 1, a conversão ocorreu e o valor está armazenado em ADC
   sensorLuz = ADC; //Resistor de 100 ohms faz o fotorresistor gerar valores 1-169 distribuidos quase linearmente.
   USART_Escreve_Flash(txtLuz); //Envio de texto para indicar que o valor seguinte é do sensor de luz
-  //USART_Transmit(sensorLuz); //transmite byte do valor recebido pelo sensor
-  Serial.println(sensorLuz); //Apenas para fins de simulação no tinkercad
+  USART_Transmit(sensorLuz); //transmite byte do valor recebido pelo sensor
+  //Serial.println(sensorLuz); //Apenas para fins de simulação no tinkercad
   delay(10);
 }
 
@@ -318,8 +318,8 @@ void senTemp(){//20-358 mapeado para 0-169
   sensorTemp = (ADC-20)/2; 
   
   USART_Escreve_Flash(txtTemp); //texto indicativo de que será valor de temperatura
-  //USART_Transmit(sensorTemp); //envio do valor de sensorTemp
-  Serial.println(sensorTemp);// Usado apenas para simulação no tinkercad
+  USART_Transmit(sensorTemp); //envio do valor de sensorTemp
+  //Serial.println(sensorTemp);// Usado apenas para simulação no tinkercad
   delay(10);
 }
 
@@ -334,8 +334,8 @@ void senGas(){//320-763 para 0-147
   sensorGas = (ADC-320)/3;
   
   USART_Escreve_Flash(txtGas);
-  //USART_Transmit(sensorGas);
-  Serial.println(sensorGas);
+  USART_Transmit(sensorGas);
+ // Serial.println(sensorGas);
   delay(10);
 }
 
